@@ -22,12 +22,17 @@ import cn.stylefeng.guns.modular.system.dao.UserMapper;
 import cn.stylefeng.guns.modular.system.model.User;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import cn.stylefeng.roses.core.reqres.response.ErrorResponseData;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +48,7 @@ import java.util.HashMap;
  */
 @RestController
 @RequestMapping("/gunsApi")
+@Api(tags="1.接口控制器",description="")
 public class ApiController extends BaseController {
 
     @Autowired
@@ -51,7 +57,12 @@ public class ApiController extends BaseController {
     /**
      * api登录接口，通过账号密码获取token
      */
-    @RequestMapping("/auth")
+    @ApiOperation("登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "账号", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String")
+    })
+    @GetMapping("/auth")
     public Object auth(@RequestParam("username") String username,
                        @RequestParam("password") String password) {
 
@@ -87,7 +98,10 @@ public class ApiController extends BaseController {
      * 测试接口是否走鉴权
      */
     @RequestMapping(value = "/test", method = RequestMethod.POST)
+    @ApiOperation("测试接口是否走鉴权")
     public Object test() {
+        BaseController baseController = new BaseController();
+
         return SUCCESS_TIP;
     }
 
