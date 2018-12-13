@@ -1,5 +1,5 @@
 /**
- * 初始化测试-test详情对话框
+ * 初始化详情对话框
  */
 var TestUserInfoDlg = {
     testUserInfoData : {}
@@ -48,7 +48,8 @@ TestUserInfoDlg.collectData = function() {
     .set('id')
     .set('name')
     .set('age')
-    .set('six');
+    .set('six')
+    .set('img');
 }
 
 /**
@@ -92,5 +93,9 @@ TestUserInfoDlg.editSubmit = function() {
 }
 
 $(function() {
+    var avatarUp = new $WebUpload("img");
 
+    avatarUp.setUploadBarId("progressBar");
+
+    avatarUp.init();
 });

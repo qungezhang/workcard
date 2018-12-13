@@ -1,5 +1,5 @@
 /**
- * 测试-test管理初始化
+ * 管理初始化
  */
 var TestUser = {
     id: "TestUserTable",	//表格id
@@ -14,10 +14,16 @@ var TestUser = {
 TestUser.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-            {title: '主键id', field: 'id', visible: false, align: 'center', valign: 'middle'},
+            {title: '主键id', field: 'id', visible: true, align: 'center', valign: 'middle'},
             {title: '姓名', field: 'name', visible: true, align: 'center', valign: 'middle'},
             {title: '年纪', field: 'age', visible: true, align: 'center', valign: 'middle'},
-            {title: '性别 ', field: 'sixName', visible: true, align: 'center', valign: 'middle'}
+            {title: '性别 1 男 2女', field: 'six', visible: true, align: 'center', valign: 'middle'},
+            {title: '图片', field: 'img', visible: true, align: 'center', valign: 'middle',
+                formatter:function (value,row,index) {
+                    return '<img src="'+Feng.ctxPath + '/kaptcha/'+row.img+'" width="100px" height="100px" >'
+
+                }
+            }
     ];
 };
 
@@ -36,12 +42,12 @@ TestUser.check = function () {
 };
 
 /**
- * 点击添加测试-test
+ * 点击添加
  */
 TestUser.openAddTestUser = function () {
     var index = layer.open({
         type: 2,
-        title: '添加测试-test',
+        title: '添加',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
@@ -51,13 +57,13 @@ TestUser.openAddTestUser = function () {
 };
 
 /**
- * 打开查看测试-test详情
+ * 打开查看详情
  */
 TestUser.openTestUserDetail = function () {
     if (this.check()) {
         var index = layer.open({
             type: 2,
-            title: '测试-test详情',
+            title: '详情',
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
@@ -68,7 +74,7 @@ TestUser.openTestUserDetail = function () {
 };
 
 /**
- * 删除测试-test
+ * 删除
  */
 TestUser.delete = function () {
     if (this.check()) {
@@ -84,7 +90,7 @@ TestUser.delete = function () {
 };
 
 /**
- * 查询测试-test列表
+ * 查询列表
  */
 TestUser.search = function () {
     var queryData = {};

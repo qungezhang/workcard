@@ -1,8 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
-import cn.stylefeng.guns.modular.system.warpper.TestWarpper;
 import cn.stylefeng.roses.core.base.controller.BaseController;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import cn.stylefeng.guns.modular.system.model.TestUser;
 import cn.stylefeng.guns.modular.system.service.ITestUserService;
 
-import java.util.List;
-import java.util.Map;
-
 /**
- * 测试-test控制器
+ * 控制器
  *
  * @author fengshuonan
- * @Date 2018-12-12 10:02:28
+ * @Date 2018-12-13 17:06:29
  */
 @Controller
 @RequestMapping("/testUser")
@@ -33,7 +28,7 @@ public class TestUserController extends BaseController {
     private ITestUserService testUserService;
 
     /**
-     * 跳转到测试-test首页
+     * 跳转到首页
      */
     @RequestMapping("")
     public String index() {
@@ -41,7 +36,7 @@ public class TestUserController extends BaseController {
     }
 
     /**
-     * 跳转到添加测试-test
+     * 跳转到添加
      */
     @RequestMapping("/testUser_add")
     public String testUserAdd() {
@@ -49,7 +44,7 @@ public class TestUserController extends BaseController {
     }
 
     /**
-     * 跳转到修改测试-test
+     * 跳转到修改
      */
     @RequestMapping("/testUser_update/{testUserId}")
     public String testUserUpdate(@PathVariable Integer testUserId, Model model) {
@@ -60,17 +55,16 @@ public class TestUserController extends BaseController {
     }
 
     /**
-     * 获取测试-test列表
+     * 获取列表
      */
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
-        List<Map<String, Object>> maps = testUserService.selectMaps(new EntityWrapper<>());
-        return super.warpObject(new TestWarpper(maps));
+        return testUserService.selectList(null);
     }
 
     /**
-     * 新增测试-test
+     * 新增
      */
     @RequestMapping(value = "/add")
     @ResponseBody
@@ -80,7 +74,7 @@ public class TestUserController extends BaseController {
     }
 
     /**
-     * 删除测试-test
+     * 删除
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
@@ -90,7 +84,7 @@ public class TestUserController extends BaseController {
     }
 
     /**
-     * 修改测试-test
+     * 修改
      */
     @RequestMapping(value = "/update")
     @ResponseBody
@@ -100,7 +94,7 @@ public class TestUserController extends BaseController {
     }
 
     /**
-     * 测试-test详情
+     * 详情
      */
     @RequestMapping(value = "/detail/{testUserId}")
     @ResponseBody

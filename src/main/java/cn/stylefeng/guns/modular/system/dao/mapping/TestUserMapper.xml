@@ -8,11 +8,12 @@
         <result column="name" property="name" />
         <result column="age" property="age" />
         <result column="six" property="six" />
+        <result column="img" property="img" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, age, six
+        id, name, age, six, img
     </sql>
 
 </mapper>

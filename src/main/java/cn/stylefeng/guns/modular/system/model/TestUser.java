@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author qunge
- * @since 2018-12-12
+ * @since 2018-12-13
  */
 @TableName("test_user")
 public class TestUser extends Model<TestUser> {
@@ -36,6 +36,10 @@ public class TestUser extends Model<TestUser> {
      * 性别 1 男 2女
      */
     private Integer six;
+    /**
+     * 图片
+     */
+    private String img;
 
 
     public Integer getId() {
@@ -70,6 +74,14 @@ public class TestUser extends Model<TestUser> {
         this.six = six;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     @Override
     protected Serializable pkVal() {
         return this.id;
@@ -82,6 +94,7 @@ public class TestUser extends Model<TestUser> {
         ", name=" + name +
         ", age=" + age +
         ", six=" + six +
+        ", img=" + img +
         "}";
     }
 }
