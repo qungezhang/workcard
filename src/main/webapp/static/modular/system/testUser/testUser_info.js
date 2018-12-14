@@ -51,7 +51,11 @@ TestUserInfoDlg.collectData = function() {
     .set('six')
     .set('img');
 }
-
+TestUserInfoDlg.validate = function () {
+    $('#userTestF').data("bootstrapValidator").resetForm();
+    $('#userTestF').bootstrapValidator('validate');
+    return $("#userTestF").data('bootstrapValidator').isValid();
+};
 /**
  * 提交添加
  */
@@ -60,6 +64,9 @@ TestUserInfoDlg.addSubmit = function() {
     this.clearData();
     this.collectData();
 
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/testUser/add", function(data){
         Feng.success("添加成功!");

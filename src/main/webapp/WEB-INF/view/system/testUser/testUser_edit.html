@@ -13,6 +13,7 @@
                 <div class="col-sm-6">
                             <#input id="six" name="性别 1 男 2女" value="${item.six}" underline="true"/>
                             <#uploader id="img" name="图片" avatarImg="${item.img}"/>
+                    <#TimeCon id="ss" name="时间" isTime="true" />
                 </div>
             </div>
 
@@ -27,4 +28,10 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/system/testUser/testUser_info.js"></script>
+<script>
+    laydate.render({
+        elem: '#ss'
+    });
+</script>
+
 @}
