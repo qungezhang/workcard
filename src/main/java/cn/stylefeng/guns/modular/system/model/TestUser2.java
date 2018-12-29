@@ -12,28 +12,28 @@ import java.io.Serializable;
  * </p>
  *
  * @author qunge
- * @since 2018-12-13
+ * @since 2018-12-29
  */
-@TableName("test_user")
-public class TestUser extends Model<TestUser> {
+@TableName("test_user2")
+public class TestUser2 extends Model<TestUser2> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键id
+     * id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
     /**
-     * 姓名
+     * 名字
      */
     private String name;
     /**
-     * 年纪
+     * 年龄
      */
     private Integer age;
     /**
-     * 性别 1 男 2女
+     * 1男 2女
      */
     private Integer six;
     /**
@@ -89,7 +89,7 @@ public class TestUser extends Model<TestUser> {
 
     @Override
     public String toString() {
-        return "TestUser{" +
+        return "TestUser2{" +
         ", id=" + id +
         ", name=" + name +
         ", age=" + age +

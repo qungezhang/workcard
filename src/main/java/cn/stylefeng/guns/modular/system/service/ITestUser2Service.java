@@ -1,6 +1,6 @@
 package cn.stylefeng.guns.modular.system.service;
 
-import cn.stylefeng.guns.modular.system.model.TestUser;
+import cn.stylefeng.guns.modular.system.model.TestUser2;
 import com.baomidou.mybatisplus.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.service.IService;
  * </p>
  *
  * @author qunge
- * @since 2018-12-12
+ * @since 2018-12-29
  */
-public interface ITestUserService extends IService<TestUser> {
+public interface ITestUser2Service extends IService<TestUser2> {
 
 }
