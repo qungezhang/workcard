@@ -1,0 +1,69 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-2">
+                    <h5>贺卡管理</h5>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <#button name="导出" icon="fa-download" clickFun="WorkerCard.export()"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <!--<div class="row">-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<#NameCon id="condition" name="名称" />-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<#button name="搜索" icon="fa-search" clickFun="WorkerCard.search()"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-9">
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-12">
+                                        <#NameCon id="fName" name="制作者姓名" placeholder="请输入制作者姓名"/>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <#NameCon id="sName" name="收卡人姓名" placeholder="请输入收卡人姓名"/>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-6">
+                                        <#NameCon id="email" name="制作者邮箱" placeholder="请输入制作者邮箱"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-3">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12">
+                                        <#button name="查找" icon="fa-search" clickFun="WorkerCard.search()"/>
+                                        <#button name="清空" icon="fa-trash" clickFun="WorkerCard.resetSearch()" space="true"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="WorkerCardTableToolbar" role="group">
+                            @if(shiro.hasPermission("/workerCard/add")){
+                                <!--<#button name="添加" icon="fa-plus" clickFun="WorkerCard.openAddWorkerCard()"/>-->
+                            @}
+                            @if(shiro.hasPermission("/workerCard/update")){
+                                <!--<#button name="修改" icon="fa-edit" clickFun="WorkerCard.openWorkerCardDetail()" space="true"/>-->
+                            @}
+                            @if(shiro.hasPermission("/workerCard/delete")){
+                                <!--<#button name="删除" icon="fa-remove" clickFun="WorkerCard.delete()" space="true"/>-->
+                            @}
+                        </div>
+                        <#table id="WorkerCardTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/system/workerCard/workerCard.js"></script>
+@}

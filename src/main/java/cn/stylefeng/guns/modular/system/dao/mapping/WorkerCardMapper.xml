@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.system.dao.WorkerCardMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.system.model.WorkerCard">
+        <id column="id" property="id" />
+        <result column="s_name" property="sName" />
+        <result column="f_name" property="fName" />
+        <result column="content" property="content" />
+        <result column="email" property="email" />
+        <result column="img_url" property="imgUrl" />
+        <result column="s_time" property="sTime" />
+        <result column="flag1" property="flag1" />
+        <result column="flag2" property="flag2" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, s_name, f_name, content, email, img_url, s_time, flag1, flag2
+    </sql>
+
+</mapper>

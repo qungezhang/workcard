@@ -367,6 +367,7 @@ public class UserMgrController extends BaseController {
         return pictureName;
     }
 
+
     /**
      * 判断当前登录的用户是否有操作这个用户的权限
      */

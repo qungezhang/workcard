@@ -170,8 +170,12 @@
         </foreach>
         )
         ) m3 ON m1.id = m3.id
-        where m1.ismenu = 1
+        where m1.ismenu = 1 and m1.status=1
         order by levels,num asc
+    </select>
+    <select id="getAllResUrls" resultType="java.lang.String">
+        select url from
+        sys_menu
     </select>
 
 </mapper>

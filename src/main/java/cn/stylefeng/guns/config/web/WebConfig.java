@@ -27,6 +27,8 @@ import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
@@ -56,6 +58,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private GunsProperties gunsProperties;
 
+
     /**
      * 增加swagger的支持
      */
@@ -65,6 +68,8 @@ public class WebConfig implements WebMvcConfigurer {
             registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
             registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         }
+        String mImagesPath = gunsProperties.getFileUploadPath();
+        registry.addResourceHandler("/images/**").addResourceLocations("file:" + mImagesPath);
     }
 
     /**

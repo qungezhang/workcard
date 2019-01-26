@@ -84,6 +84,8 @@ public interface MenuMapper extends BaseMapper<Menu> {
      */
     List<String> getResUrlsByRoleId(Integer roleId);
 
+    List<String> getAllResUrls();
+
     /**
      * 根据角色获取菜单
      *
