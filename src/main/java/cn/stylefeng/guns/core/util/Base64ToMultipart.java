@@ -13,8 +13,12 @@ public class Base64ToMultipart {
         byte[] b = new byte[0];
         b = decoder.decodeBuffer(baseStrs[1]);
 
-        for(int i = 0; i < b.length; ++i) { if (b[i] < 0) { b[i] += 256;
-        } } return new BASE64DecodedMultipartFile(b, baseStrs[0]);
+        for(int i = 0; i < b.length; ++i) {
+            if (b[i] < 0) {
+                b[i] += 256;
+            }
+        }
+        return new BASE64DecodedMultipartFile(b, baseStrs[0]);
     } catch (IOException e) { e.printStackTrace();
         return null;
     } }
