@@ -37,7 +37,7 @@ function operateFormatter(value, row, index) {
 window.operateEvents = {
     'click .RoleOfedit': function (e, value, row, index) {
         // alert(row.imgUrl);
-        var url = Feng.ctxPath+row.imgUrl;
+        var url = Feng.ctxPath+row.flag1;
         layer.open({
             type: 1,
             title: false,

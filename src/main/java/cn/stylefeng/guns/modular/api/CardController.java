@@ -59,9 +59,14 @@ public class CardController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/uploadBase64")
     @ApiOperation("图片上传Base64")
-    public ResponseData uploadBase64(@RequestParam("base") String base) {
-
-        return upload(Base64ToMultipart.base64ToMultipart(base));
+    public ResponseData uploadBase64(@RequestParam("base") String base, @RequestParam("id") String id) {
+        ResponseData responseData = upload(Base64ToMultipart.base64ToMultipart(base));
+        String data = (String) responseData.getData();
+        WorkerCard workerCard = workerCardService.selectById(id);
+        workerCard.setFlag1(data);
+        workerCardService.updateById(workerCard);
+        responseData.setData(id);
+        return responseData;
     }
 
 
@@ -70,7 +75,7 @@ public class CardController {
      */
     @PostMapping(value = "/add")
     @ApiOperation("生成贺卡")
-    public ResponseData add(@RequestBody WorkerCard workerCard) {
+    public ResponseData add(WorkerCard workerCard) {
         workerCard.setsTime(new Date());
         workerCardService.insert(workerCard);
         SuccessResponseData successResponseData = new SuccessResponseData();

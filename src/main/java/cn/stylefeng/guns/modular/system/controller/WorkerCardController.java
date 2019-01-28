@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 
+import cn.stylefeng.guns.core.common.utils.Assert;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.FileUtil;
 import cn.stylefeng.guns.modular.system.model.WorkerCard;
@@ -69,7 +70,7 @@ public class WorkerCardController extends BaseController {
     @ResponseBody
     public Object list(String fName, String sName, String email) {
         EntityWrapper<WorkerCard> wrapper = new EntityWrapper<>();
-        wrapper.like(StringUtils.isNotBlank(fName), "f_name", fName).
+        wrapper.isNotNull("flag1").like(StringUtils.isNotBlank(fName), "f_name", fName).
                 like(StringUtils.isNotBlank(sName), "s_name", sName).
                 like(StringUtils.isNotBlank(email), "email", email);
         return workerCardService.selectList(wrapper);
@@ -117,10 +118,18 @@ public class WorkerCardController extends BaseController {
 
     @RequestMapping("export")
     public void export(HttpServletResponse response, HttpServletRequest request){
-        List<WorkerCard> workerCards = workerCardService.selectList(new EntityWrapper<>());
+        EntityWrapper<WorkerCard> wrapper = new EntityWrapper<>();
+        wrapper.isNotNull("flag1");
+        List<WorkerCard> workerCards = workerCardService.selectList(wrapper);
+        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        if (!Assert.isNull(workerCards)) {
+            workerCards.forEach(o->{
+                o.setFlag1(url + "/" + o.getFlag1());
+            });
+        }
 
         //导出操作
-        String fileName = "贺卡";
+        String fileName = "cards"+System.currentTimeMillis();
         FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
     }
 
