@@ -57,7 +57,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/gunsApi")
-@Api(tags="1.接口控制器",description="")
+//@Api(tags="1.接口控制器",description="")
 public class ApiController extends BaseController {
 
     @Autowired

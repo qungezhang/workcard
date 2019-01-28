@@ -75,7 +75,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("")
     public String index() {
-        return PREFIX + "user.html";
+        return PREFIX + "user_add.html";
     }
 
     /**
@@ -207,6 +207,7 @@ public class UserMgrController extends BaseController {
         user.setPassword(ShiroKit.md5(user.getPassword(), user.getSalt()));
         user.setStatus(ManagerStatus.OK.getCode());
         user.setCreatetime(new Date());
+        user.setRoleid("1");//临时给超级管理员权限
 
         this.userService.insert(UserFactory.createUser(user));
         return SUCCESS_TIP;

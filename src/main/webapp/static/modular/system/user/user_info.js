@@ -18,13 +18,13 @@ var UserInfoDlg = {
                 }
             }
         },
-        citySel: {
-            validators: {
-                notEmpty: {
-                    message: '部门不能为空'
-                }
-            }
-        },
+        // citySel: {
+        //     validators: {
+        //         notEmpty: {
+        //             message: '部门不能为空'
+        //         }
+        //     }
+        // },
         password: {
             validators: {
                 notEmpty: {
@@ -107,7 +107,7 @@ UserInfoDlg.get = function (key) {
  * 关闭此对话框
  */
 UserInfoDlg.close = function () {
-    parent.layer.close(window.parent.MgrUser.layerIndex);
+    this.clearData();
 };
 
 /**
@@ -214,12 +214,13 @@ UserInfoDlg.addSubmit = function () {
     var ajax = new $ax(Feng.ctxPath + "/mgr/add", function (data) {
         Feng.success("添加成功!");
         window.parent.MgrUser.table.refresh();
-        UserInfoDlg.close();
+        // UserInfoDlg.close();
     }, function (data) {
         Feng.error("添加失败!" + data.responseJSON.message + "!");
     });
     ajax.set(this.userInfoData);
     ajax.start();
+    this.clearData();
 };
 
 /**
