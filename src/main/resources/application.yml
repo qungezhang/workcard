@@ -1,5 +1,10 @@
 server:
   port: 8080
+  max-http-header-size: 1048576
+  tomcat:
+    max-http-header-size: 1048576
+    max-connections: 300
+    max-threads: 1000
 
 guns:
   swagger-open: true              #是否开启swagger (true/false)
@@ -40,7 +45,7 @@ log:
 spring:
   profiles: local
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/carswork?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
     username: root
     password: 123456
     filters: wall,mergeStat
