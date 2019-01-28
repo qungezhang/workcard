@@ -1,27 +1,23 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 
-import cn.stylefeng.guns.core.util.FileUtil;
-import cn.stylefeng.roses.core.base.controller.BaseController;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.MimeUtility;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.beans.factory.annotation.Autowired;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
-import org.springframework.web.bind.annotation.RequestParam;
+import cn.stylefeng.guns.core.util.FileUtil;
 import cn.stylefeng.guns.modular.system.model.WorkerCard;
 import cn.stylefeng.guns.modular.system.service.IWorkerCardService;
+import cn.stylefeng.roses.core.base.controller.BaseController;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
