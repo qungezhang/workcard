@@ -2,6 +2,7 @@ package cn.stylefeng.guns.modular.api;
 
 import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
+import cn.stylefeng.guns.core.util.Base64ToMultipart;
 import cn.stylefeng.guns.modular.system.model.WorkerCard;
 import cn.stylefeng.guns.modular.system.service.IWorkerCardService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
@@ -54,6 +55,13 @@ public class CardController {
         SuccessResponseData successResponseData = new SuccessResponseData();
         successResponseData.setData("images/"+pictureName);
         return successResponseData ;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/uploadBase64")
+    @ApiOperation("图片上传Base64")
+    public ResponseData uploadBase64(@RequestParam("base") String base) {
+
+        return upload(Base64ToMultipart.base64ToMultipart(base));
     }
 
 
