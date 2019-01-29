@@ -9,8 +9,8 @@
     <defaultCache
             maxElementsInMemory="50000"
             eternal="false"
-            timeToIdleSeconds="3600"
-            timeToLiveSeconds="3600"
+            timeToIdleSeconds="7200"
+            timeToLiveSeconds="7200"
             overflowToDisk="true"
             diskPersistent="false"
             diskExpiryThreadIntervalSeconds="120"
@@ -19,15 +19,18 @@
     <!-- 全局变量：永不过期-->
     <cache name="CONSTANT"
     	   maxElementsInMemory="50000"
-           eternal="true"
-    	   clearOnFlush="false"
+           eternal="false"
+           timeToLiveSeconds="7200"
+           timeToIdleSeconds="7200"
+           clearOnFlush="false"
            overflowToDisk="true"
            diskSpoolBufferSizeMB="1024"
            maxElementsOnDisk="100000"
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"
            memoryStoreEvictionPolicy="LFU"
-           transactionalMode="off">
+           transactionalMode="off"
+    >
     </cache>
 
 </ehcache>

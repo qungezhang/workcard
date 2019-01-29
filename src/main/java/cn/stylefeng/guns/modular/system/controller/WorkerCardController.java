@@ -3,6 +3,7 @@ package cn.stylefeng.guns.modular.system.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import cn.stylefeng.guns.core.common.utils.Assert;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.FileUtil;
@@ -123,20 +124,20 @@ public class WorkerCardController extends BaseController {
     public void export(HttpServletResponse response, HttpServletRequest request){
         EntityWrapper<WorkerCard> wrapper = new EntityWrapper<>();
         wrapper.isNotNull("flag1");
+        String bashUrl = "http://139.224.225.99:8099/";
         List<WorkerCard> workerCards = workerCardService.selectList(wrapper);
-        String url = request.getScheme() + "://" + request.getServerName() ;
+//        String url = request.getScheme() + "://" + request.getServerName() ;
         if (!Assert.isNull(workerCards)) {
             workerCards.forEach(o->{
-                o.setFlag1(url + "/" + o.getFlag1());
+                o.setFlag1(bashUrl+ o.getFlag1());
             });
         }
 
         //导出操作
         String fileName = "cards"+System.currentTimeMillis();
-
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(),WorkerCard.class,workerCards);
-        FileUtil.downLoadExcel(fileName, response, workbook);
-//        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
+        TemplateExportParams params = new TemplateExportParams("excelTemplate/myRepay.xls");
+//        FileUtil.downLoadExcel(fileName, response, workbook);
+        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
 
     }
 

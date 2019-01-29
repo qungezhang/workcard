@@ -3,6 +3,9 @@ package cn.stylefeng.guns.modular.api;
 import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.util.Base64ToMultipart;
+import cn.stylefeng.guns.core.util.CacheUtil;
+import cn.stylefeng.guns.core.util.SignUtil;
+import cn.stylefeng.guns.core.util.WinxinUtil;
 import cn.stylefeng.guns.modular.system.model.WorkerCard;
 import cn.stylefeng.guns.modular.system.service.IWorkerCardService;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
@@ -11,6 +14,7 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +30,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
+
+import static cn.stylefeng.guns.core.util.WinxinUtil.cacheAccessTokenKey;
+import static cn.stylefeng.guns.core.util.WinxinUtil.cachejsapiTicketKey;
+import static cn.stylefeng.guns.core.util.WinxinUtil.getAccessToken;
+import static cn.stylefeng.guns.core.util.WinxinUtil.getTicket;
 
 @RestController
 @RequestMapping("/api")
@@ -92,6 +102,20 @@ public class CardController {
         successResponseData.setData(workerCardService.selectById(id));
         return successResponseData;
     }
+
+    @GetMapping(value = "/sign")
+    @ApiOperation("微信SDK使用权限签名")
+    public ResponseData sign(String url) {
+        String jsapiTicket = CacheUtil.get("CONSTANT", cachejsapiTicketKey);
+        if (StringUtils.isBlank(jsapiTicket)) {
+            jsapiTicket = getTicket();
+        }
+        Map<String, String> sign = SignUtil.sign(jsapiTicket, url);
+        SuccessResponseData successResponseData = new SuccessResponseData();
+        successResponseData.setData(sign);
+        return successResponseData;
+    }
+
 
 //    /**
 //     * 新增
