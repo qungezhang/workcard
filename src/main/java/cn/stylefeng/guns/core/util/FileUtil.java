@@ -5,13 +5,17 @@ import cn.afterturn.easypoi.excel.ExcelImportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.afterturn.easypoi.excel.entity.ImportParams;
 import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.io.resource.Resource;
 import cn.stylefeng.guns.core.common.exception.RRException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -35,11 +39,12 @@ public class FileUtil {
 
     private static void defaultExport(List<?> list, Class<?> pojoClass, String fileName, HttpServletResponse response, ExportParams exportParams) {
         Workbook workbook = ExcelExportUtil.exportExcel(exportParams,pojoClass,list);
+
         if (workbook != null);
         downLoadExcel(fileName, response, workbook);
     }
 
-    private static void downLoadExcel(String fileName, HttpServletResponse response, Workbook workbook) {
+    public static void downLoadExcel(String fileName, HttpServletResponse response, Workbook workbook) {
         try {
 
             //设置响应的编码
@@ -98,5 +103,48 @@ public class FileUtil {
             throw new RRException(e.getMessage());
         }
         return list;
+    }
+
+    public static String convertTemplatePath(String path) {
+        // 如果是windows 则直接返回
+        // if (System.getProperties().getProperty("os.name").contains("Windows")) {
+        // return path;
+        // }
+
+        Resource resource = new ClassPathResource(path);
+        FileOutputStream fileOutputStream = null;
+        // 将模版文件写入到 tomcat临时目录
+        String folder = System.getProperty("catalina.home");
+        File tempFile = new File(folder + File.separator + path);
+        // System.out.println("文件路径：" + tempFile.getPath());
+        // 文件存在时 不再写入
+        if (tempFile.exists()) {
+            return tempFile.getPath();
+        }
+        File parentFile = tempFile.getParentFile();
+        // 判断父文件夹是否存在
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
+        try {
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(resource.getStream());
+            fileOutputStream = new FileOutputStream(tempFile);
+            byte[] buffer = new byte[10240];
+            int len = 0;
+            while ((len = bufferedInputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, len);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileOutputStream != null) {
+                try {
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return tempFile.getPath();
     }
 }

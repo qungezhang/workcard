@@ -29,8 +29,8 @@ CREATE TABLE `code_dbinfo`  (
   `db_user_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '数据库账户',
   `db_password` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '连接密码',
   `db_type` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '数据库类型',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据库链接信息' ROW_FORMAT = Dynamic;
 
@@ -103,7 +103,7 @@ CREATE TABLE `sys_expense`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `money` decimal(20, 2) NULL DEFAULT NULL COMMENT '报销金额',
   `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '描述',
-  `createtime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `state` int(11) NULL DEFAULT NULL COMMENT '状态: 1.待提交  2:待审核   3.审核通过 4:驳回',
   `userid` int(11) NULL DEFAULT NULL COMMENT '用户id',
   `processId` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '流程定义id',
@@ -118,7 +118,7 @@ CREATE TABLE `sys_login_log`  (
   `id` int(65) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `logname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '日志名称',
   `userid` int(65) NULL DEFAULT NULL COMMENT '管理员id',
-  `createtime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `succeed` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否执行成功',
   `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '具体消息',
   `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '登录ip',
@@ -277,7 +277,7 @@ CREATE TABLE `sys_notice`  (
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '标题',
   `type` int(11) NULL DEFAULT NULL COMMENT '类型',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '内容',
-  `createtime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `creater` int(11) NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '通知表' ROW_FORMAT = Dynamic;
@@ -299,7 +299,7 @@ CREATE TABLE `sys_operation_log`  (
   `userid` int(65) NULL DEFAULT NULL COMMENT '用户id',
   `classname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类名称',
   `method` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '方法名称',
-  `createtime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `succeed` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否成功',
   `message` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
@@ -464,14 +464,14 @@ CREATE TABLE `sys_user`  (
   `password` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '密码',
   `salt` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'md5密码盐',
   `name` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '名字',
-  `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
+  `birthday` datetime NULL DEFAULT NULL COMMENT '生日',
   `sex` int(11) NULL DEFAULT NULL COMMENT '性别（1：男 2：女）',
   `email` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电子邮件',
   `phone` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电话',
   `roleid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
   `deptid` int(11) NULL DEFAULT NULL COMMENT '部门id',
   `status` int(11) NULL DEFAULT NULL COMMENT '状态(1：启用  2：冻结  3：删除）',
-  `createtime` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `createtime` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `version` int(11) NULL DEFAULT NULL COMMENT '保留字段',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 51 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
@@ -541,7 +541,7 @@ CREATE TABLE `worker_card`  (
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '贺卡内容',
   `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '制作者邮箱',
   `img_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图片',
-  `s_time` datetime(0) NULL DEFAULT NULL COMMENT '制作时间',
+  `s_time` datetime NULL DEFAULT NULL COMMENT '制作时间',
   `flag1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义一',
   `flag2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义二',
   PRIMARY KEY (`id`) USING BTREE

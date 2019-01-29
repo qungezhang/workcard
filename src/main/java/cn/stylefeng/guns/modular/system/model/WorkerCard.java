@@ -63,7 +63,7 @@ public class WorkerCard extends Model<WorkerCard> {
     /**
      * 自定义一
      */
-    @Excel(name = "贺卡图片", orderNum = "5",type = 2,imageType = 1,height = 30)
+//    @Excel(name = "贺卡图片", orderNum = "5",type = 2,imageType = 1,height = 30)
     private String flag1;
     /**
      * 自定义二

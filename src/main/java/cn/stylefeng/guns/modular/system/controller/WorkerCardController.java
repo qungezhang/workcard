@@ -1,6 +1,8 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.stylefeng.guns.core.common.utils.Assert;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.FileUtil;
@@ -9,6 +11,7 @@ import cn.stylefeng.guns.modular.system.service.IWorkerCardService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -121,7 +124,7 @@ public class WorkerCardController extends BaseController {
         EntityWrapper<WorkerCard> wrapper = new EntityWrapper<>();
         wrapper.isNotNull("flag1");
         List<WorkerCard> workerCards = workerCardService.selectList(wrapper);
-        String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        String url = request.getScheme() + "://" + request.getServerName() ;
         if (!Assert.isNull(workerCards)) {
             workerCards.forEach(o->{
                 o.setFlag1(url + "/" + o.getFlag1());
@@ -130,7 +133,11 @@ public class WorkerCardController extends BaseController {
 
         //导出操作
         String fileName = "cards"+System.currentTimeMillis();
-        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
+
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(),WorkerCard.class,workerCards);
+        FileUtil.downLoadExcel(fileName, response, workbook);
+//        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
+
     }
 
 }
