@@ -4,6 +4,7 @@ import cn.stylefeng.guns.config.properties.GunsProperties;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.util.Base64ToMultipart;
 import cn.stylefeng.guns.core.util.CacheUtil;
+import cn.stylefeng.guns.core.util.MailService;
 import cn.stylefeng.guns.core.util.SignUtil;
 import cn.stylefeng.guns.core.util.WinxinUtil;
 import cn.stylefeng.guns.modular.system.model.WorkerCard;
@@ -48,6 +49,9 @@ public class CardController {
 
     @Autowired
     private IWorkerCardService workerCardService;
+
+    @Autowired
+    private MailService mailService;
 
 
     @RequestMapping(method = RequestMethod.POST, path = "/upload")
@@ -113,6 +117,18 @@ public class CardController {
         Map<String, String> sign = SignUtil.sign(jsapiTicket, url);
         SuccessResponseData successResponseData = new SuccessResponseData();
         successResponseData.setData(sign);
+        return successResponseData;
+    }
+
+
+    @GetMapping(value = "/sendEmail")
+    @ApiOperation("发邮件")
+    public ResponseData sendEmail(String toEmail, String picUrl) {
+        String[] toEmails = toEmail.split(",");
+        String title = "";
+//        mailService.sendImgMail(toEmails,null,title,null,)
+        SuccessResponseData successResponseData = new SuccessResponseData();
+//        successResponseData.setData(sign);
         return successResponseData;
     }
 

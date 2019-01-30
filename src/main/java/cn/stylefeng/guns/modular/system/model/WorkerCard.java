@@ -63,13 +63,23 @@ public class WorkerCard extends Model<WorkerCard> {
     /**
      * 自定义一
      */
-    @Excel(name = "贺卡图片", orderNum = "5", type = 2, imageType = 1, height = 30, width = 15)
     private String flag1;
     /**
      * 自定义二
      */
     private String flag2;
 
+    @TableField(exist = false)
+    @Excel(name = "贺卡图片", orderNum = "5", type = 2, imageType = 2, height = 30, width = 10)
+    private byte[] pic;
+
+    public byte[] getPic() {
+        return pic;
+    }
+
+    public void setPic(byte[] pic) {
+        this.pic = pic;
+    }
 
     public Integer getId() {
         return id;

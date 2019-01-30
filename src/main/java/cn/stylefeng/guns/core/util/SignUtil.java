@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static javax.xml.crypto.dsig.DigestMethod.SHA1;
+
 public class SignUtil {
 
 
@@ -22,36 +24,59 @@ public class SignUtil {
 //        }
 //
 //    }
+public static String SHA1(String decript) {
+    try {
+        MessageDigest digest = java.security.MessageDigest.getInstance("SHA-1");
+        digest.update(decript.getBytes());
+        byte messageDigest[] = digest.digest();
+        // Create Hex String
+        StringBuffer hexString = new StringBuffer();
+        // 字节数组转换为 十六进制 数
+        for (int i = 0; i < messageDigest.length; i++) {
+            String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+            if (shaHex.length() < 2) {
+                hexString.append(0);
+            }
+            hexString.append(shaHex);
+        }
+        return hexString.toString();
 
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+    }
+    return "";
+}
     public static Map<String, String> sign(String jsapi_ticket, String url) {
         Map<String, String> ret = new HashMap<String, String>();
         String nonce_str = create_nonce_str();
         String timestamp = create_timestamp();
         String string1;
-        String signature = "";
 
         //注意这里参数名必须全部小写，且必须有序
         string1 = "jsapi_ticket=" + jsapi_ticket +
                 "&noncestr=" + nonce_str +
-                "×tamp=" + timestamp +
+                "&timestamp=" + timestamp +
                 "&url=" + url;
-        System.out.println(string1);
+        System.out.println("string1:" + string1);
+        String signature =SHA1(string1);
+        System.out.println("signature:" + signature);
 
-        try
-        {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.reset();
-            crypt.update(string1.getBytes("UTF-8"));
-            signature = byteToHex(crypt.digest());
-        }
-        catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            e.printStackTrace();
-        }
+
+//        try
+//        {
+//            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+//            crypt.reset();
+//            crypt.update(string1.getBytes("UTF-8"));
+//            signature = byteToHex(crypt.digest());
+//        }
+//        catch (NoSuchAlgorithmException e)
+//        {
+//            e.printStackTrace();
+//        }
+//        catch (UnsupportedEncodingException e)
+//        {
+//            e.printStackTrace();
+//        }
 
         ret.put("url", url);
         ret.put("jsapi_ticket", jsapi_ticket);
@@ -62,7 +87,7 @@ public class SignUtil {
         return ret;
     }
 
-    private static String byteToHex(final byte[] hash) {
+    private static String  byteToHex(final byte[] hash) {
         Formatter formatter = new Formatter();
         for (byte b : hash)
         {
@@ -78,6 +103,6 @@ public class SignUtil {
     }
 
     private static String create_timestamp() {
-        return Long.toString(System.currentTimeMillis() / 1000);
+        return (System.currentTimeMillis() / 1000) + "";
     }
 }

@@ -1,8 +1,6 @@
 package cn.stylefeng.guns.modular.system.controller;
 
 
-import cn.afterturn.easypoi.excel.ExcelExportUtil;
-import cn.afterturn.easypoi.excel.entity.ExportParams;
 import cn.stylefeng.guns.core.common.utils.Assert;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
 import cn.stylefeng.guns.core.util.FileUtil;
@@ -11,8 +9,6 @@ import cn.stylefeng.guns.modular.system.service.IWorkerCardService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFPatriarch;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -127,33 +120,20 @@ public class WorkerCardController extends BaseController {
     public void export(HttpServletResponse response, HttpServletRequest request){
         EntityWrapper<WorkerCard> wrapper = new EntityWrapper<>();
         wrapper.isNotNull("flag1");
-        String bashUrl = "http://139.224.225.99:8099/";
+//        String bashUrl = "http://139.224.225.99:8099/";
         List<WorkerCard> workerCards = workerCardService.selectList(wrapper);
-//        String url = request.getScheme() + "://" + request.getServerName() ;
+        String url = request.getScheme() + "://" + request.getServerName() ;
         if (!Assert.isNull(workerCards)) {
             workerCards.forEach(o->{
-                o.setFlag1(bashUrl+ o.getFlag1());
+                String pictureUrl = url + "/" + o.getFlag1();
+                byte[] bytes = FileUtil.pictureTobyte(pictureUrl);
+                o.setPic(bytes);
             });
         }
         //导出操作
         String fileName = "cards"+System.currentTimeMillis();
+        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
 
-        File savefile = new File("D:/excel/");
-        if (!savefile.exists()) {
-            savefile.mkdirs();
-        }
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(), WorkerCard.class,workerCards);
-        try {
-            FileOutputStream fos = new FileOutputStream("D:/excel/" + fileName + ".xls");
-            workbook.write(fos);
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(),WorkerCard.class,workerCards);
-//        FileUtil.downLoadExcel(fileName, response, workbook);
-//        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
 
     }
 
