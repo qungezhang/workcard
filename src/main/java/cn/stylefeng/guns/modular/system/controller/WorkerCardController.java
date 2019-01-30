@@ -11,6 +11,7 @@ import cn.stylefeng.guns.modular.system.service.IWorkerCardService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -130,12 +134,24 @@ public class WorkerCardController extends BaseController {
                 o.setFlag1(url + "/" + o.getFlag1());
             });
         }
-
         //导出操作
         String fileName = "cards"+System.currentTimeMillis();
 
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(),WorkerCard.class,workerCards);
-        FileUtil.downLoadExcel(fileName, response, workbook);
+        File savefile = new File("D:/excel/");
+        if (!savefile.exists()) {
+            savefile.mkdirs();
+        }
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(), WorkerCard.class,workerCards);
+        try {
+            FileOutputStream fos = new FileOutputStream("D:/excel/" + fileName + ".xls");
+            workbook.write(fos);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams(),WorkerCard.class,workerCards);
+//        FileUtil.downLoadExcel(fileName, response, workbook);
 //        FileUtil.exportExcel(workerCards, "贺卡数据", "贺卡数据", WorkerCard.class, fileName, response);
 
     }
