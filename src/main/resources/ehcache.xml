@@ -20,16 +20,12 @@
     <cache name="CONSTANT"
     	   maxElementsInMemory="50000"
            eternal="false"
-           timeToLiveSeconds="10"
-           timeToIdleSeconds="10"
-           clearOnFlush="false"
+           timeToLiveSeconds="7199"
+           timeToIdleSeconds="7199"
            overflowToDisk="true"
-           diskSpoolBufferSizeMB="1024"
-           maxElementsOnDisk="100000"
            diskPersistent="false"
            diskExpiryThreadIntervalSeconds="120"
-           memoryStoreEvictionPolicy="LFU"
-           transactionalMode="off"
+
     >
     </cache>
 

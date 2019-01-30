@@ -17,17 +17,21 @@ guns:
 beetl:
   resource-auto-check: true       #热加载beetl模板，开发时候用
 
-spring:
- mail:
-  host: smtp.qq.com      #qq邮箱为smtp.qq.com      163邮箱为smtp.163.com
-  username: 123456789@qq.com     #自己定义的发送者账号
-  password: 123456     #这里不是注册时的密码，而是上面生成的授权码
+#spring:
+# mail:
+#  host: smtp.qq.com      #qq邮箱为smtp.qq.com      163邮箱为smtp.163.com
+#  username: 3537449570@qq.com     #自己定义的发送者账号
+#  password: cellsignal123     #这里不是注册时的密码，而是上面生成的授权码
 
 #properties.mail.smtp.auth=true   --开启验证 true为开启，false不开启
 #spring.mail.properties.mail.smtp.starttls.enable=true    --加密通讯，true开启，false不开启
 #spring.mail.properties.mail.smtp.starttls.required=true    --是否必须通过使用加密通讯进行通讯，true开启，false不开启
 
 spring:
+  mail:
+    host: smtp.qq.com      #qq邮箱为smtp.qq.com      163邮箱为smtp.163.com
+    username: 2498876294@qq.com     #自己定义的发送者账号
+    password: hmlewcjgzhboebih     #这里不是注册时的密码，而是上面生成的授权码
   profiles:
     active: @spring.active@
   mvc:
