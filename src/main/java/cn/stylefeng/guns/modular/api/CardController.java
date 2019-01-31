@@ -80,7 +80,7 @@ public class CardController {
         WorkerCard workerCard = workerCardService.selectById(id);
         workerCard.setFlag1(data);
         workerCardService.updateById(workerCard);
-        responseData.setData(id);
+        responseData.setData(data);
         return responseData;
     }
 
@@ -129,11 +129,11 @@ public class CardController {
         String pictureUrl = "/var/card/" + picUrl;
         String[] toEmails = toEmail.split(",");
         String title = "CST为您带来" + fName + "的新年祝福！";
-//        String text = "Dear " + sName + "：" +
-//                "<br><br>" +
-//                "新年至，喜福来！<br>" +
-//                "一年伊始，好友" + fName + "把满满情怀和祝福点落在一张专为您而制的贺卡上，愿您2019年幸福怡悦，一切顺利。 ";
-        String text = "Dear " + sName + "：新年至，喜福来！<br><br>在新年佳节，好友" + fName + "有满满情怀和祝福想要告诉你，于是，TA悄悄地把文字点落在一张专为您而制的贺卡上。与他共同祝福，愿2019年的福气、怡悦会为你所沾，新年的旅途顺顺利利！";
+        String text = "Dear " + sName + "：" +
+                "<br><br>" +
+                "新年至，喜福来！<br>" +
+                "一年伊始，" + fName + "把满满情怀和祝福点落在一张专为您而制的贺卡上，愿您2019年幸福怡悦，一切顺利。 ";
+//        String text = "Dear " + sName + "：新年至，喜福来！<br><br>在新年佳节，好友" + fName + "有满满情怀和祝福想要告诉你，于是，TA悄悄地把文字点落在一张专为您而制的贺卡上。与他共同祝福，愿2019年的福气、怡悦会为你所沾，新年的旅途顺顺利利！";
         boolean b = mailService.sendImgMail(toEmails, null, title, text, pictureUrl, "dt","<br><br><br><br>CST中国");
         SuccessResponseData successResponseData = new SuccessResponseData();
         successResponseData.setData(b);
